@@ -1,5 +1,7 @@
 package br.ufrn.imd.application;
 
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginApp extends Application {
+public class LoginWindow extends Application {
 
 	private static Stage stage;
 	
@@ -25,6 +27,11 @@ public class LoginApp extends Application {
 	private double ANCHOR_PANE_HEIGHT;
 	
 	private String WINDOW_TITLE;
+	private String FAREWELL_MESSAGE;
+	private String FAILED_LOGIN_MESSAGE;
+	
+	private int SUCCESSFUL_EXIT;
+	private int FAILED_EXIT;
 
 	public double middleCordinates(double componentWidth, double anchorPaneWidth) {
 		return ((anchorPaneWidth - componentWidth) / 2);
@@ -33,7 +40,11 @@ public class LoginApp extends Application {
 	private void initComponents() {
 		ANCHOR_PANE_WIDTH = 400;
 		ANCHOR_PANE_HEIGHT = 300;
+		SUCCESSFUL_EXIT = 0;
+		FAILED_EXIT = 1;
 		WINDOW_TITLE = "Login - Loja Pokemon";
+		FAREWELL_MESSAGE = "Até logo!";
+		FAILED_LOGIN_MESSAGE = "Erro! Login ou Senha inválidos!";
 		
 		anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(ANCHOR_PANE_WIDTH, ANCHOR_PANE_HEIGHT);
@@ -82,11 +93,25 @@ public class LoginApp extends Application {
 	}
 	
 	private void logar(){
+		boolean correctLogin = loginInputBox.getText().equals("admin");
+		boolean correctPassword = loginInputBox.getText().equals("123");
 		
+		if(correctLogin && correctPassword){
+			try {
+				new VitrineWindow().start(new Stage());
+				LoginWindow.stage.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.exit(FAILED_EXIT);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, FAILED_LOGIN_MESSAGE);
+		}
 	}
 
 	private void fecharAplicacao(){
-		
+		JOptionPane.showMessageDialog(null, FAREWELL_MESSAGE);
+		System.exit(SUCCESSFUL_EXIT);
 	}
 	
 	@Override
@@ -104,7 +129,7 @@ public class LoginApp extends Application {
 						
 			initLayout();
 
-			LoginApp.stage = primaryStage;
+			LoginWindow.stage = primaryStage;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
