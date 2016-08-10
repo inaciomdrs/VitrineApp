@@ -20,7 +20,7 @@ public class ItemProperty {
 		this.nome.set(nome);
 	}
 
-	public Double getForca() {
+	public double getForca() {
 		return forca.get();
 	}
 

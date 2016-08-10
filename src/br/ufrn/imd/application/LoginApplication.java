@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginWindow extends Application {
+public class LoginApplication extends Application {
 
 	private static Stage stage;
 	
@@ -94,12 +94,12 @@ public class LoginWindow extends Application {
 	
 	private void logar(){
 		boolean correctLogin = loginInputBox.getText().equals("admin");
-		boolean correctPassword = loginInputBox.getText().equals("123");
+		boolean correctPassword = passwordInputBox.getText().equals("123");
 		
 		if(correctLogin && correctPassword){
 			try {
-				new VitrineWindow().start(new Stage());
-				LoginWindow.stage.close();
+				new VitrineApplication().start(new Stage());
+				LoginApplication.stage.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(FAILED_EXIT);
@@ -129,7 +129,7 @@ public class LoginWindow extends Application {
 						
 			initLayout();
 
-			LoginWindow.stage = primaryStage;
+			LoginApplication.stage = primaryStage;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
