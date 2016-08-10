@@ -35,6 +35,7 @@ public class VitrineApplication extends Application {
 	
 	private int    WINDOW_WIDTH;
 	private int    WINDOW_HEIGHT;
+	private String WINDOW_TITLE;
 	private String WINDOW_STYLE;
 	
 	private int TABLE_WIDTH;
@@ -45,6 +46,7 @@ public class VitrineApplication extends Application {
 		
 		WINDOW_WIDTH = 800;
 		WINDOW_HEIGHT = 600;
+		WINDOW_TITLE = "Loja Pokemon - Vitrine";
 		WINDOW_STYLE = "-fx-background-color: linear-gradient(" + "from 0% 0% to 100% 100%, blue 0%, silver 100%);";
 
 		TABLE_WIDTH = 780;
@@ -75,6 +77,7 @@ public class VitrineApplication extends Application {
 	}
 	
 	private void initListeners(){
+				
 		this.termoPesquisaTextField.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -85,6 +88,20 @@ public class VitrineApplication extends Application {
 				}
 			}
 		});
+	}
+	
+	private void initLayout(){
+		double VITRINE_TABLE_X_POSITION = 0;
+		double VITRINE_TABLE_Y_POSITION = this.termoPesquisaTextField.getHeight();
+		
+		double SEARCH_BAR_X_POSITION = WINDOW_WIDTH - this.termoPesquisaTextField.getWidth();
+		double SEARCH_BAR_Y_POSITION = 0;
+		
+		this.vitrineTable.setLayoutX(VITRINE_TABLE_X_POSITION);
+		this.vitrineTable.setLayoutY(VITRINE_TABLE_Y_POSITION);
+		
+		this.termoPesquisaTextField.setLayoutX(SEARCH_BAR_X_POSITION);
+		this.termoPesquisaTextField.setLayoutY(SEARCH_BAR_Y_POSITION);
 	}
 	
 	private void initItems(){
@@ -125,8 +142,10 @@ public class VitrineApplication extends Application {
 			
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("Loja Pokemon");
+			primaryStage.setTitle(WINDOW_TITLE);
 			primaryStage.show();
+			
+			initLayout();
 			
 			VitrineApplication.stage = primaryStage;
 		} catch(Exception e){
