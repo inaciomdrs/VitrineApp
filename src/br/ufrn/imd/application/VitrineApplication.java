@@ -3,7 +3,6 @@ package br.ufrn.imd.application;
 import br.ufrn.imd.model.Carrinho;
 import br.ufrn.imd.model.Pokemon;
 import br.ufrn.imd.model.Vitrine;
-import br.ufrn.imd.properties.ItemProperty;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,6 +28,10 @@ public class VitrineApplication extends Application {
 	private static ObservableList<Pokemon> itemsList = FXCollections.observableArrayList();
 	private static Stage stage;
 	private static Carrinho carrinho;
+
+	public static Carrinho getCarrinho() {
+		return carrinho;
+	}
 
 	private int FAILED_EXIT;
 	
@@ -88,6 +92,28 @@ public class VitrineApplication extends Application {
 				}
 			}
 		});
+		
+		this.vitrineTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("Entering...");
+				
+				if(event.isPrimaryButtonDown() && event.getClickCount() == 2){
+					int selectedPokemonIndex = vitrineTable.getSelectionModel().getSelectedIndex();
+					
+					System.out.println(itemsList.get(selectedPokemonIndex).getNome());
+					
+					ItemVitrineApplication.setPokemon(itemsList.get(selectedPokemonIndex));					
+					ItemVitrineApplication.setIndex(selectedPokemonIndex);
+					
+					try {
+						new ItemVitrineApplication().start(new Stage());
+					} catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 	
 	private void initLayout(){
@@ -110,11 +136,9 @@ public class VitrineApplication extends Application {
 	private void initItems(){
 		Vitrine vitrine = Vitrine.getInstance();
 		
-		vitrine.addProdutos(new Pokemon("Pikachu", 12.00),
-							new Pokemon("Charmander", 19.00),
-							new Pokemon("Zubat", 9.00),
-							new Pokemon("Ratata", 11.00),
-							new Pokemon("Pidgey", 10.00));
+		vitrine.addProdutos(new Pokemon("Snorlax", 120.00),
+							new Pokemon("Blastoise", 130.00)
+							);
 		
 		for(Pokemon pokemon : vitrine.getPokemons()){
 			itemsList.add(pokemon);
