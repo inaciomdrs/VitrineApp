@@ -1,7 +1,5 @@
 package br.ufrn.imd.application;
 
-
-
 import br.ufrn.imd.model.Carrinho;
 import br.ufrn.imd.model.Pokemon;
 import br.ufrn.imd.model.Vitrine;
@@ -23,13 +21,13 @@ public class VitrineApplication extends Application {
 
 	private AnchorPane anchorPane;	
 	private TextField termoPesquisaTextField;
-	private TableView<ItemProperty> vitrineTable;
-	private TableColumn<ItemProperty, String> produtoColumn;
-	private TableColumn<ItemProperty, Double> precoColumn;
+	private TableView<Pokemon> vitrineTable;
+	private TableColumn<Pokemon, String> produtoColumn;
+	private TableColumn<Pokemon, Double> precoColumn;
 
-	private static ObservableList<ItemProperty> itemsList = FXCollections.observableArrayList();
+	private static ObservableList<Pokemon> itemsList = FXCollections.observableArrayList();
 	private static Stage stage;
-	private Carrinho carrinho;
+	private static Carrinho carrinho;
 
 	private int FAILED_EXIT;
 	
@@ -59,18 +57,20 @@ public class VitrineApplication extends Application {
 		this.termoPesquisaTextField = new TextField();
 		this.termoPesquisaTextField.setPromptText("Digite o item para pesquisa:");
 
-		this.vitrineTable = new TableView<ItemProperty>();
+		this.vitrineTable = new TableView<>();
 		this.vitrineTable.setPrefSize(TABLE_WIDTH, TABLE_HEIGHT);
 
-		this.produtoColumn = new TableColumn<ItemProperty, String>("Pokemon");
-		this.produtoColumn.setCellValueFactory(new PropertyValueFactory<ItemProperty, String>("Nome"));
+		this.produtoColumn = new TableColumn<>("Pokemon");
+		this.produtoColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, String>("Nome"));
 
-		this.precoColumn = new TableColumn<ItemProperty, Double>("Força");
-		this.precoColumn.setCellValueFactory(new PropertyValueFactory<ItemProperty, Double>("Forca"));
+		this.precoColumn = new TableColumn<>("Força");
+		this.precoColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Forca"));
 				
-		this.carrinho = Carrinho.getInstance();
+		VitrineApplication.carrinho = Carrinho.getInstance();
 		
-		this.vitrineTable.getColumns().addAll(produtoColumn, precoColumn);
+		this.vitrineTable.getColumns().add(produtoColumn);
+		this.vitrineTable.getColumns().add(precoColumn);
+		
 		this.anchorPane.getChildren().addAll(termoPesquisaTextField, vitrineTable);
 		
 		initItems();
@@ -100,6 +100,9 @@ public class VitrineApplication extends Application {
 		this.vitrineTable.setLayoutX(VITRINE_TABLE_X_POSITION);
 		this.vitrineTable.setLayoutY(VITRINE_TABLE_Y_POSITION);
 		
+		this.produtoColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.6));
+		this.precoColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.4));
+		
 		this.termoPesquisaTextField.setLayoutX(SEARCH_BAR_X_POSITION);
 		this.termoPesquisaTextField.setLayoutY(SEARCH_BAR_Y_POSITION);
 	}
@@ -114,18 +117,18 @@ public class VitrineApplication extends Application {
 							new Pokemon("Pidgey", 10.00));
 		
 		for(Pokemon pokemon : vitrine.getPokemons()){
-			itemsList.add(new ItemProperty(pokemon.getNome(), pokemon.getForca()));
+			itemsList.add(pokemon);
 		}
 		
 		this.vitrineTable.setItems(itemsList);
 	}
 	
-	private ObservableList<ItemProperty> findItems(){
-		ObservableList<ItemProperty> foundItems = FXCollections.observableArrayList();
+	private ObservableList<Pokemon> findItems(){
+		ObservableList<Pokemon> foundItems = FXCollections.observableArrayList();
 		
-		for(ItemProperty items : VitrineApplication.itemsList){
-			if(items.getNome().contains(this.termoPesquisaTextField.getText())){
-				foundItems.add(items);
+		for(Pokemon pokemon : VitrineApplication.itemsList){
+			if(pokemon.getNome().contains(this.termoPesquisaTextField.getText())){
+				foundItems.add(pokemon);
 			}
 		}
 		
