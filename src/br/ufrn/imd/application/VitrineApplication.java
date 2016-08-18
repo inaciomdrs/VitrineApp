@@ -96,12 +96,8 @@ public class VitrineApplication extends Application {
 		this.vitrineTable.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("Entering...");
-				
 				if(event.isPrimaryButtonDown() && event.getClickCount() == 2){
 					int selectedPokemonIndex = vitrineTable.getSelectionModel().getSelectedIndex();
-					
-					System.out.println(itemsList.get(selectedPokemonIndex).getNome());
 					
 					ItemVitrineApplication.setPokemon(itemsList.get(selectedPokemonIndex));					
 					ItemVitrineApplication.setIndex(selectedPokemonIndex);
