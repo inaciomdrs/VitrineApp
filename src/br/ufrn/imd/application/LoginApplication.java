@@ -58,6 +58,8 @@ public class LoginApplication extends Application {
 	}
 	
 	private void initLayout(){
+		anchorPane.getStyleClass().add("pane");
+				
 		loginInputBox.setPromptText("Digite aqui seu login");
 		loginInputBox.setLayoutX(middleCordinates(loginInputBox.getWidth(), ANCHOR_PANE_WIDTH));
 		loginInputBox.setLayoutY(50);
@@ -68,12 +70,11 @@ public class LoginApplication extends Application {
 
 		entrarButton.setLayoutX(middleCordinates(entrarButton.getWidth(), ANCHOR_PANE_WIDTH));
 		entrarButton.setLayoutY(150);
+		entrarButton.getStyleClass().add("btEntrar");
 
 		sairButton.setLayoutX(middleCordinates(sairButton.getWidth(), ANCHOR_PANE_WIDTH));
 		sairButton.setLayoutY(200);
-
-		anchorPane.setStyle(
-				"-fx-background-color: linear-gradient(" + "from 0% 0% to 100% 100%, blue 0%, silver 100%);");
+		sairButton.getStyleClass().add("btSair");
 	}
 	
 	private void initListeners(){
@@ -121,6 +122,8 @@ public class LoginApplication extends Application {
 			initListeners();
 			
 			Scene scene = new Scene(anchorPane);
+			scene.getStylesheets().add("resources/css/application.css");
+			
 
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);

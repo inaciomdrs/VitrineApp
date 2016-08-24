@@ -13,8 +13,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class VitrineApplication extends Application {
@@ -127,6 +129,12 @@ public class VitrineApplication extends Application {
 		
 		this.termoPesquisaTextField.setLayoutX(SEARCH_BAR_X_POSITION);
 		this.termoPesquisaTextField.setLayoutY(SEARCH_BAR_Y_POSITION);
+		
+		DropShadow dropShadowEffect = new DropShadow();
+		dropShadowEffect.setSpread(0.5);
+		dropShadowEffect.setColor(Color.RED);
+		
+		this.termoPesquisaTextField.setEffect(dropShadowEffect);
 	}
 	
 	private void initItems(){

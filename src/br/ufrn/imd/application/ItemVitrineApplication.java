@@ -1,15 +1,25 @@
 package br.ufrn.imd.application;
 
 import br.ufrn.imd.model.Pokemon;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class ItemVitrineApplication extends Application {
 
@@ -48,6 +58,7 @@ public class ItemVitrineApplication extends Application {
 		imageArea.setPreserveRatio(true);
 		imageArea.setLayoutX(IMAGE_X_POSITION);
 		imageArea.setLayoutY(IMAGE_Y_POSITION);
+		imageArea.setEffect(new Reflection());
 
 		double SPACE = 30;
 		double NOME_LABEL_X_POSITION = IMAGE_X_POSITION + imageArea.getFitWidth() + SPACE;
@@ -103,6 +114,11 @@ public class ItemVitrineApplication extends Application {
 
 		addCarrinhoButton.setLayoutX(BUTTON_X_POSITION);
 		addCarrinhoButton.setLayoutY(BUTTON_Y_POSITION);
+		
+		InnerShadow innerShadowEffect = new InnerShadow(); 
+		innerShadowEffect.setColor(Color.GREEN);
+		
+		addCarrinhoButton.setEffect(innerShadowEffect);
 
 		WINDOW_TITLE = "Detalhe Pokemon";
 		WINDOW_WIDTH = 600;
@@ -153,6 +169,35 @@ public class ItemVitrineApplication extends Application {
 	private void initItems() {
 		pokemonPhotos = new String[] { "resources/imgs/snorlax.png", "resources/imgs/blastoise.png" };
 	}
+	
+	private void initTransitions(){
+		FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), this.imageArea);
+		fadeTransition.setFromValue(0.0);
+		fadeTransition.setToValue(1.0);
+		fadeTransition.play();
+		
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(2000), addCarrinhoButton);
+		scaleTransition.setToX(1.5);
+		scaleTransition.setToY(1.5);
+		scaleTransition.setCycleCount(2);
+		scaleTransition.play();
+		
+		SequentialTransition transitions = new SequentialTransition();
+		transitions.getChildren().addAll(fadeTransition, scaleTransition);
+		transitions.play();
+	}
+	
+	private void initTimeline(){
+		Timeline timeline = new Timeline();
+		
+		KeyValue keyValue = new KeyValue(imageArea.opacityProperty(), 0.0);
+		KeyFrame keyFrame = new KeyFrame(Duration.millis(2000), keyValue);
+		
+		timeline.getKeyFrames().add(keyFrame);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setAutoReverse(true);
+		timeline.play();
+	}
 
 	public static Stage getStage() {
 		return stage;
@@ -171,8 +216,10 @@ public class ItemVitrineApplication extends Application {
 		try {
 			initComponents();
 			initListeners();
+			initTransitions();
+			initTimeline();
 			initLayout();
-
+			
 			Scene scene = new Scene(this.anchorPane);
 
 			primaryStage.setScene(scene);

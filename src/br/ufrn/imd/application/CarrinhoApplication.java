@@ -51,8 +51,6 @@ public class CarrinhoApplication extends Application {
 		
 		double SPACE = 30;
 		
-		System.out.println(this.vitrineTable.widthProperty().doubleValue());
-		
 		double EXCLUIR_BUTTON_X_POS = VITRINE_X_POS + this.vitrineTable.widthProperty().doubleValue() + SPACE;
 		double EXCLUIR_BUTTON_Y_POS = VITRINE_Y_POS;
 		
