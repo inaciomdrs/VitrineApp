@@ -24,8 +24,13 @@ public class VitrineApplication extends Application {
 	private AnchorPane anchorPane;	
 	private TextField termoPesquisaTextField;
 	private TableView<Pokemon> vitrineTable;
-	private TableColumn<Pokemon, String> produtoColumn;
-	private TableColumn<Pokemon, Double> precoColumn;
+	private TableColumn<Pokemon, String> nomeColumn;
+	private TableColumn<Pokemon, Double> forcaColumn;
+	private TableColumn<Pokemon, Double> saudeColumn;
+	private TableColumn<Pokemon, Double> defesaColumn;
+	private TableColumn<Pokemon, Double> staminaColumn;
+	private TableColumn<Pokemon, String> vantagemColumn;
+	private TableColumn<Pokemon, String> desvantagemColumn;
 
 	private static ObservableList<Pokemon> itemsList = FXCollections.observableArrayList();
 	private static Stage stage;
@@ -48,13 +53,13 @@ public class VitrineApplication extends Application {
 	private void initComponents() {
 		FAILED_EXIT = 1;
 		
-		WINDOW_WIDTH = 800;
+		WINDOW_WIDTH = 1200;
 		WINDOW_HEIGHT = 600;
 		WINDOW_TITLE = "Loja Pokemon - Vitrine";
 		WINDOW_STYLE = "-fx-background-color: linear-gradient(" + "from 0% 0% to 100% 100%, blue 0%, silver 100%);";
 
-		TABLE_WIDTH = 780;
-		TABLE_HEIGHT = 750;
+		TABLE_WIDTH = 1200;
+		TABLE_HEIGHT = 600;
 		
 		this.anchorPane = new AnchorPane();
 		this.anchorPane.setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -66,16 +71,36 @@ public class VitrineApplication extends Application {
 		this.vitrineTable = new TableView<>();
 		this.vitrineTable.setPrefSize(TABLE_WIDTH, TABLE_HEIGHT);
 
-		this.produtoColumn = new TableColumn<>("Pokemon");
-		this.produtoColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, String>("Nome"));
+		this.nomeColumn = new TableColumn<>("Pokemon");
+		this.nomeColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, String>("Nome"));
 
-		this.precoColumn = new TableColumn<>("Força");
-		this.precoColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Forca"));
-				
+		this.forcaColumn = new TableColumn<>("Força");
+		this.forcaColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Forca"));
+		
+		this.saudeColumn = new TableColumn<>("Saúde");
+		this.saudeColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Saúde"));
+		
+		this.defesaColumn = new TableColumn<>("Defesa");
+		this.defesaColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Defesa"));
+		
+		this.staminaColumn = new TableColumn<>("Stamina");
+		this.staminaColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, Double>("Stamina"));
+		
+		this.vantagemColumn = new TableColumn<>("Vantagem");
+		this.vantagemColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, String>("Vantagem"));
+		
+		this.desvantagemColumn = new TableColumn<>("Desvantagem");
+		this.desvantagemColumn.setCellValueFactory(new PropertyValueFactory<Pokemon, String>("Desvantagem"));
+								
 		VitrineApplication.carrinho = Carrinho.getInstance();
 		
-		this.vitrineTable.getColumns().add(produtoColumn);
-		this.vitrineTable.getColumns().add(precoColumn);
+		this.vitrineTable.getColumns().add(nomeColumn);
+		this.vitrineTable.getColumns().add(forcaColumn);
+		this.vitrineTable.getColumns().add(saudeColumn);
+		this.vitrineTable.getColumns().add(defesaColumn);
+		this.vitrineTable.getColumns().add(staminaColumn);
+		this.vitrineTable.getColumns().add(vantagemColumn);
+		this.vitrineTable.getColumns().add(desvantagemColumn);
 		
 		this.anchorPane.getChildren().addAll(termoPesquisaTextField, vitrineTable);
 		
@@ -124,8 +149,13 @@ public class VitrineApplication extends Application {
 		this.vitrineTable.setLayoutX(VITRINE_TABLE_X_POSITION);
 		this.vitrineTable.setLayoutY(VITRINE_TABLE_Y_POSITION);
 		
-		this.produtoColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.6));
-		this.precoColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.4));
+		this.nomeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.forcaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.saudeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.defesaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.staminaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.vantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.desvantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
 		
 		this.termoPesquisaTextField.setLayoutX(SEARCH_BAR_X_POSITION);
 		this.termoPesquisaTextField.setLayoutY(SEARCH_BAR_Y_POSITION);
