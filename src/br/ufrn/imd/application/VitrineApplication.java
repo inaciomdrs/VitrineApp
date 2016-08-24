@@ -132,8 +132,8 @@ public class VitrineApplication extends Application {
 	private void initItems(){
 		Vitrine vitrine = Vitrine.getInstance();
 		
-		vitrine.addProdutos(new Pokemon("Snorlax", 120.00),
-							new Pokemon("Blastoise", 130.00)
+		vitrine.addProdutos(new Pokemon("Snorlax", "Normal", "Luta", "Fantasma", 500, 1000, 1500, 800),
+							new Pokemon("Blastoise", "Água", "Fogo", "Terra", 600, 800, 700, 900)
 							);
 		
 		for(Pokemon pokemon : vitrine.getPokemons()){
