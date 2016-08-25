@@ -4,8 +4,8 @@ import br.ufrn.imd.model.Pokemon;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -156,7 +156,7 @@ public class ItemVitrineApplication extends Application {
 		this.saudeLabel = new Label("Saúde: " + pokemon.getSaude());
 		this.staminaLabel = new Label("Stamina: " + pokemon.getStamina());
 		this.vantagemLabel = new Label("Vantagem: " + pokemon.getVantagem());
-		this.desvantagemLabel = new Label("Vantagem: " + pokemon.getDesvantagem());
+		this.desvantagemLabel = new Label("Desvantagem: " + pokemon.getDesvantagem());
 
 		this.addCarrinhoButton = new Button("Adicionar ao carrinho");
 
@@ -171,18 +171,17 @@ public class ItemVitrineApplication extends Application {
 	}
 	
 	private void initTransitions(){
-		FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), this.imageArea);
+		FadeTransition fadeTransition = new FadeTransition(Duration.millis(2000), this.imageArea);
 		fadeTransition.setFromValue(0.0);
 		fadeTransition.setToValue(1.0);
-		fadeTransition.play();
 		
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(2000), addCarrinhoButton);
 		scaleTransition.setToX(1.5);
 		scaleTransition.setToY(1.5);
 		scaleTransition.setCycleCount(2);
-		scaleTransition.play();
+		scaleTransition.setAutoReverse(true);
 		
-		SequentialTransition transitions = new SequentialTransition();
+		ParallelTransition transitions = new ParallelTransition();
 		transitions.getChildren().addAll(fadeTransition, scaleTransition);
 		transitions.play();
 	}
