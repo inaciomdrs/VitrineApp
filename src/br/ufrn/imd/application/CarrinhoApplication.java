@@ -142,9 +142,8 @@ public class CarrinhoApplication extends Application {
 	}
 	
 	private void reloadStage(){
-		CarrinhoApplication.stage.hide();
-		initComponents();
-		CarrinhoApplication.stage.show();
+		initItems();
+		this.vitrineTable.refresh();
 	}
 	
 	public static Stage getStage() {

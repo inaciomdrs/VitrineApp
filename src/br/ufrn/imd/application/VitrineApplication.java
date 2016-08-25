@@ -149,13 +149,13 @@ public class VitrineApplication extends Application {
 		this.vitrineTable.setLayoutX(VITRINE_TABLE_X_POSITION);
 		this.vitrineTable.setLayoutY(VITRINE_TABLE_Y_POSITION);
 		
-		this.nomeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.forcaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.saudeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.defesaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.staminaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.vantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
-		this.desvantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.1));
+		this.nomeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.forcaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.saudeColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.defesaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.staminaColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.vantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
+		this.desvantagemColumn.prefWidthProperty().bind(this.vitrineTable.widthProperty().multiply(0.14));
 		
 		this.termoPesquisaTextField.setLayoutX(SEARCH_BAR_X_POSITION);
 		this.termoPesquisaTextField.setLayoutY(SEARCH_BAR_Y_POSITION);
