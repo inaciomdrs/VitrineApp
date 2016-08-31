@@ -4,9 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public abstract class GenericDAO<T, F> implements IDataAcess<T, F> {
+public abstract class GenericDAO<T> implements IDataAcess<T> {
 
-	private final static String PERSISTENCE_NAME = "Scrumboard";
+	private final static String PERSISTENCE_NAME = "VitrineApp";
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 	
