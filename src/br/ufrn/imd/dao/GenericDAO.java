@@ -37,7 +37,7 @@ public abstract class GenericDAO<T> implements IDataAcess<T> {
 		entityManager.getTransaction().commit();
 		return object;
 	}
-
+	
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}

@@ -1,5 +1,8 @@
 package br.ufrn.imd.application;
 
+import java.util.List;
+
+import br.ufrn.imd.dao.PokemonDAO;
 import br.ufrn.imd.model.Carrinho;
 import br.ufrn.imd.model.Pokemon;
 import br.ufrn.imd.model.Vitrine;
@@ -127,7 +130,7 @@ public class VitrineApplication extends Application {
 					int selectedPokemonIndex = vitrineTable.getSelectionModel().getSelectedIndex();
 					
 					ItemVitrineApplication.setPokemon(itemsList.get(selectedPokemonIndex));					
-					ItemVitrineApplication.setIndex(selectedPokemonIndex);
+//					ItemVitrineApplication.setIndex(selectedPokemonIndex);
 					
 					try {
 						new ItemVitrineApplication().start(new Stage());
@@ -169,11 +172,13 @@ public class VitrineApplication extends Application {
 	
 	private void initItems(){
 		Vitrine vitrine = Vitrine.getInstance();
+		PokemonDAO pokemonDAO = PokemonDAO.getSingleton();
+		List<Pokemon> pokemons = pokemonDAO.listar();
 		
-		vitrine.addProdutos(new Pokemon("Snorlax", "Normal", "Luta", "Fantasma", 500, 1000, 1500, 800),
-							new Pokemon("Blastoise", "Água", "Fogo", "Terra", 600, 800, 700, 900)
-							);
-		
+		for(Pokemon pokemon : pokemons){
+			vitrine.addProdutos(pokemon);
+		}
+				
 		for(Pokemon pokemon : vitrine.getPokemons()){
 			itemsList.add(pokemon);
 		}

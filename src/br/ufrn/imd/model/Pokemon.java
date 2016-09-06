@@ -21,19 +21,21 @@ public class Pokemon {
 	
 	private String vantagem;
 	private String desvantagem;
+	private String foto;
 	
 	private double forca;
 	private double saude;
 	private double defesa;
 	private double stamina;
-	
+			
 	public Pokemon(){}
 
-	public Pokemon(String nome, String tipo, String vantagem, String desvantagem, double forca, double saude,
+	public Pokemon(String nome, String tipo, String vantagem, String desvantagem, String foto, double forca, double saude,
 			double defesa, double stamina) {
 		super();
 		this.nome = nome;
 		this.tipo = tipo;
+		this.foto = foto;
 		this.vantagem = vantagem;
 		this.desvantagem = desvantagem;
 		this.forca = forca;
@@ -112,6 +114,14 @@ public class Pokemon {
 
 	public void setStamina(double stamina) {
 		this.stamina = stamina;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	
 		

@@ -40,8 +40,8 @@ public class ItemVitrineApplication extends Application {
 	private Button addCarrinhoButton;
 
 	private static Pokemon pokemon;
-	private static int index;
-	private static String pokemonPhotos[];
+//	private static int index;
+//	private static String pokemonPhotos[];
 
 	private int FAILED_EXIT;
 
@@ -148,7 +148,7 @@ public class ItemVitrineApplication extends Application {
 
 		initItems();
 
-		this.imageArea = new ImageView(pokemonPhotos[index]);
+		this.imageArea = new ImageView(pokemon.getFoto());
 		this.nomeLabel = new Label("Nome: " + pokemon.getNome());
 		this.tipoLabel = new Label("Tipo: " + pokemon.getTipo());
 		this.forcaLabel = new Label("Forca: " + pokemon.getForca());
@@ -167,7 +167,7 @@ public class ItemVitrineApplication extends Application {
 	}
 
 	private void initItems() {
-		pokemonPhotos = new String[] { "resources/imgs/snorlax.png", "resources/imgs/blastoise.png" };
+//		pokemonPhotos = new String[] { "resources/imgs/snorlax.png", "resources/imgs/blastoise.png" };
 	}
 	
 	private void initTransitions(){
@@ -206,9 +206,6 @@ public class ItemVitrineApplication extends Application {
 		ItemVitrineApplication.pokemon = pokemon;
 	}
 
-	public static void setIndex(int index) {
-		ItemVitrineApplication.index = index;
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
