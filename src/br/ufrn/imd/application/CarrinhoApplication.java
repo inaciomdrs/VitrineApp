@@ -2,16 +2,19 @@ package br.ufrn.imd.application;
 
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import br.ufrn.imd.model.Pokemon;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,6 +33,8 @@ public class CarrinhoApplication extends Application {
 	private Button excluirItemButton;
 	private Button voltarVitrineButton;
 	private Button confirmarCompraButton;
+	
+	private ProgressBar progressBar;
 	
 	private static ObservableList<Pokemon> itemsList = FXCollections.observableArrayList();
 	
@@ -69,6 +74,12 @@ public class CarrinhoApplication extends Application {
 		this.confirmarCompraButton.setLayoutX(CONFIRMAR_BUTTON_X_POS);
 		this.confirmarCompraButton.setLayoutY(CONFIRMAR_BUTTON_Y_POS);
 		
+		double PROGRESS_BAR_X_POS = EXCLUIR_BUTTON_X_POS;
+		double PROGRESS_BAR_Y_POS = CONFIRMAR_BUTTON_Y_POS + SPACE;
+		
+		this.progressBar.setLayoutX(PROGRESS_BAR_X_POS);
+		this.progressBar.setLayoutY(PROGRESS_BAR_Y_POS);
+		
 	}
 
 	private void initListeners() {
@@ -92,9 +103,49 @@ public class CarrinhoApplication extends Application {
 		confirmarCompraButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				JOptionPane.showMessageDialog(null, "Compra finalizada com sucesso!");
-				VitrineApplication.getCarrinho().getPokemons().clear();
-				reloadStage();
+				Task<Void> task = new Task<Void>() {
+					
+					@Override
+					protected Void call() throws Exception {
+						updateMessage("Aguarde...");
+						
+						try {
+							for (int j = 0; j < 10; j++) {
+								Thread.sleep(500);
+								updateProgress(j + 1, 10);	
+							}
+						} catch(InterruptedException ex){
+							ex.printStackTrace();
+						}
+						
+						updateMessage("Confirmar Compra");
+						
+						Platform.runLater(new Runnable() {
+							Alert alert;
+							@Override
+							public void run() {
+								alert = new Alert(AlertType.CONFIRMATION);
+								alert.setTitle("Confirmação de compra");
+								alert.setHeaderText("Compra realizada com sucesso!");
+								alert.setHeaderText("Obrigado pela compra");
+								alert.showAndWait();
+								
+								CarrinhoApplication.getStage().close();
+								ItemVitrineApplication.getStage().close();
+							}
+						});
+
+						return null;
+					}
+				};
+				
+				progressBar.progressProperty().bind(task.progressProperty());				
+				confirmarCompraButton.textProperty().bind(task.messageProperty());
+				new Thread(task).start();
+												
+//				JOptionPane.showMessageDialog(null, "Compra finalizada com sucesso!");
+//				VitrineApplication.getCarrinho().getPokemons().clear();
+//				reloadStage();
 			}
 		});
 	}
@@ -123,7 +174,9 @@ public class CarrinhoApplication extends Application {
 		this.voltarVitrineButton   = new Button("Voltar Vitrine");
 		this.confirmarCompraButton = new Button("Confirmar Compra");
 		
-		this.anchorPane.getChildren().addAll(vitrineTable,excluirItemButton,voltarVitrineButton,confirmarCompraButton);
+		this.progressBar = new ProgressBar(0.6);
+		
+		this.anchorPane.getChildren().addAll(vitrineTable,excluirItemButton,voltarVitrineButton,confirmarCompraButton,progressBar);
 		
 		initItems();
 				
